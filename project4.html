@@ -1,0 +1,154 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="color-scheme" content="light"><meta name="description" content="祝子凡的机器人算法求职复习手册：HR面试与四个项目二面问答，含完整追问、指标表与背诵进度。"><title>PhysDRO 多样化抓取生成 · 面试背诵手册</title><link rel="icon" href="favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="styles.css"><script src="bank.js" defer></script><script src="app.js" defer></script></head><body data-chapter="project4"><a class="skip" href="#main">跳到正文</a><header class="topbar"><a class="brand" href="index.html"><span class="brand-mark">问</span><span>面试背诵手册<small>ZIFAN ZHU / INTERVIEW NOTES</small></span></a><nav aria-label="主导航"><a href="index.html" class="">目录</a><a href="hr.html">HR 面</a><a href="project1.html">项目二面</a><button class="quiet" id="print" type="button">打印</button></nav></header><div class="reading-layout"><aside class="sidebar"><a class="back" href="index.html">← 返回五卷目录</a><div class="nav-label">复习分卷</div><a class="nav-link " href="hr.html"><span>HR</span>HR 面试<small>44</small></a><a class="nav-link " href="project1.html"><span>1</span>本科视觉—触觉闭环抓取<small>10</small></a><a class="nav-link " href="project2.html"><span>2</span>二指视触觉与稳定性评估<small>12</small></a><a class="nav-link " href="project3.html"><span>3</span>五指触觉建模与稳定性预测<small>15</small></a><a class="nav-link active" href="project4.html"><span>4</span>PhysDRO 多样化抓取生成<small>15</small></a><details class="toc" open><summary>本卷题目 <span>15</span></summary><nav aria-label="本卷目录"><a href="#project4-q01"><span>01</span>为什么做PhysDRO？和五指数据集项目是什么关系？</a><a href="#project4-q02"><span>02</span>为什么保留D(R,O)表示，不直接生成关节角？</a><a href="#project4-q03"><span>03</span>怎样判断模型没有使用潜变量？KL很小就能证明吗？</a><a href="#project4-q04"><span>04</span>条件先验、FiLM、KL退火和Free Bits分别解决什么？是不是堆模块？</a><a href="#project4-q05"><span>05</span>为什么不直接删除KL，让模型自由表达？</a><a href="#project4-q06"><span>06</span>距离感知权重为什么有效？会不会只顾局部、破坏整体几何？</a><a href="#project4-q07"><span>07</span>可微物理正则究竟在算什么？为什么称为代理？</a><a href="#project4-q08"><span>08</span>为什么有穿透惩罚，还要屏蔽深度穿透点？</a><a href="#project4-q09"><span>09</span>怎样证明每项改进有效？完整结果如下。</a><a href="#project4-q10"><span>10</span>去掉Prior和FiLM，仿真成功率反而65%，为什么还保留？</a><a href="#project4-q11"><span>11</span>方差更大，怎么证明多样性更好？</a><a href="#project4-q12"><span>12</span>力闭合率89.2%，动态成功率为什么只有53.9%？</a><a href="#project4-q13"><span>13</span>DiPGrasp仿真成功率60.6%，你只有53.9%，优势在哪里？</a><a href="#project4-q14"><span>14</span>对比实验是否公平？你能完整复算吗？</a><a href="#project4-q15"><span>15</span>如果继续做，你会优先改什么？</a></nav></details></aside><main id="main" class="reading"><header class="chapter-header"><p class="eyebrow rust">VOL. 05 / 项目四 · 2026.03—2026.08</p><h1>PhysDRO 多样化抓取生成</h1><p class="chapter-sub">从候选生成中发现问题，发展成独立研究。完整保留消融核心题与指标取舍分析。</p><div class="chapter-progress"><span id="progress-text">0 / 15 已掌握</span><div><i id="progress-bar"></i></div><span>从评价候选，到改善生成</span></div></header><section class="reading-tools" aria-label="复习工具"><div class="search-row"><span aria-hidden="true">⌕</span><input id="search" type="search" placeholder="搜索本卷问题、答案或指标" aria-label="搜索本卷" autocomplete="off"><kbd>/</kbd></div><div class="category-row"><button class="category-btn active" data-category="all" aria-pressed="true">全部</button><button class="category-btn" data-category="设计与判断" aria-pressed="false">设计与判断</button><button class="category-btn" data-category="指标与证据" aria-pressed="false">指标与证据</button><button class="category-btn" data-category="落地与改进" aria-pressed="false">落地与改进</button></div><div class="filter-row"><button id="only-saved" aria-pressed="false">只看收藏</button><button id="only-unlearned" aria-pressed="false">只看未掌握</button><button id="expand-all" class="quiet">展开全部</button><button id="collapse-all" class="quiet">折叠全部</button><button id="random" class="quiet">随机抽题</button><span id="search-count" role="status"></span></div></section><div id="empty" class="empty" hidden>没有找到符合条件的题目。试试其他关键词或关闭筛选。</div><section id="questions" aria-label="问答列表"><details class="question" id="project4-q01" data-id="project4-q01" data-category="设计与判断" data-core="true"><summary><span class="q-meta"><span class="level l1">L1</span><span class="q-code">P4 · 01</span><span class="core-tag">重点</span><span class="mastered-tag" hidden>已掌握</span><span class="saved-tag" hidden>已收藏</span></span><span class="q-title">为什么做PhysDRO？和五指数据集项目是什么关系？</span><span class="chevron" aria-hidden="true">＋</span></summary><div class="answer"><div class="answer-label">参考回答 / 深入追问</div><blockquote><p>五指项目需要大量抓取候选，才能采集不同接触状态和稳定性数据。但使用已有生成方法时，我发现，同一物体改变随机采样后，生成构型仍然比较相似，部分候选还存在穿透或接触不合理的问题。</p>
+<p>这意味着候选数量增加，不一定带来同等程度的有效接触覆盖；同时，几何上看似接近物体，也不代表能形成稳定抓取。</p>
+<p>因此，我进一步分析了生成模型怎样使用潜变量，以及训练目标是否充分关注接触和物理合理性，在官方D(R,O)基础上开展改进。随着实现和实验逐渐完整，这部分工作发展成了PhysDRO。</p></blockquote>
+<h3>追问：为什么不直接多采样，再过滤？</h3>
+<blockquote><p>如果模型对潜变量不敏感，多采样可能主要得到相似候选，过滤能去掉无效结果，却不能保证补充新的有效模式。</p>
+<p>所以我希望同时改善生成分布与候选质量。不过，严格证明比“更多采样加过滤”更高效，还需要在相同计算或时间预算下比较有效候选数量，现有实验没有完整覆盖这一点。</p></blockquote><div class="q-actions"><button class="master-btn" data-id="project4-q01" aria-pressed="false">标记掌握</button><button class="save-btn" data-id="project4-q01" aria-pressed="false">加入重点</button><button class="copy-btn quiet" data-id="project4-q01">复制本题</button><a href="#project4-q01" class="permalink">题目链接 ↗</a></div></div></details><details class="question" id="project4-q02" data-id="project4-q02" data-category="设计与判断" data-core="false"><summary><span class="q-meta"><span class="level l2">L2</span><span class="q-code">P4 · 02</span><span class="mastered-tag" hidden>已掌握</span><span class="saved-tag" hidden>已收藏</span></span><span class="q-title">为什么保留D(R,O)表示，不直接生成关节角？</span><span class="chevron" aria-hidden="true">＋</span></summary><div class="answer"><div class="answer-label">参考回答 / 深入追问</div><blockquote><p>我保留它，是因为它用手部表面点与物体点之间的距离关系表达抓取，减少了输出对某一套关节维度和语义的直接绑定，也便于关注手物接触几何。</p>
+<p>网络先生成距离矩阵，再通过位置恢复和运动学约束得到最终关节配置。我的改进集中在这套表示下的潜变量利用、重建重点和物理正则。</p>
+<p>但距离表示也有代价：预测距离未必完全一致，后处理还可能引入误差；换手型仍需要几何、运动学和关节约束适配，不能说天然支持任意灵巧手。</p></blockquote>
+<h3>追问：你提出了这个表示吗？</h3>
+<blockquote><p>没有。D(R,O)表示、原始骨干和姿态恢复流程来自官方方法，我完成的是针对具体问题的增量开发。</p></blockquote><div class="q-actions"><button class="master-btn" data-id="project4-q02" aria-pressed="false">标记掌握</button><button class="save-btn" data-id="project4-q02" aria-pressed="false">加入重点</button><button class="copy-btn quiet" data-id="project4-q02">复制本题</button><a href="#project4-q02" class="permalink">题目链接 ↗</a></div></div></details><details class="question" id="project4-q03" data-id="project4-q03" data-category="指标与证据" data-core="false"><summary><span class="q-meta"><span class="level l2">L2</span><span class="q-code">P4 · 03</span><span class="mastered-tag" hidden>已掌握</span><span class="saved-tag" hidden>已收藏</span></span><span class="q-title">怎样判断模型没有使用潜变量？KL很小就能证明吗？</span><span class="chevron" aria-hidden="true">＋</span></summary><div class="answer"><div class="answer-label">参考回答 / 深入追问</div><blockquote><p>我先固定相同的手物条件，改变潜变量采样，比较输出距离矩阵和恢复后的抓取构型，发现变化很小；同时训练记录中出现KL趋近于零的现象。</p>
+<p>两种现象结合，支持模型存在潜变量利用不足。但不能只凭KL小就判定后验坍塌，因为KL也可能受到损失实现、权重和记录方式影响。</p>
+<p>更完整的诊断，还应比较不同目标抓取的后验分布，以及改变潜变量后有效输出是否变化。</p></blockquote>
+<h3>追问：如果KL变大了，是否说明问题解决？</h3>
+<blockquote><p>不一定。KL变大只说明后验与先验差异增加，不保证潜变量携带有用信息，更不保证产生更多成功抓取。</p>
+<p>最终要检查同条件下的输出变化，以及这些变化中有多少通过物理和仿真验证。</p></blockquote><div class="q-actions"><button class="master-btn" data-id="project4-q03" aria-pressed="false">标记掌握</button><button class="save-btn" data-id="project4-q03" aria-pressed="false">加入重点</button><button class="copy-btn quiet" data-id="project4-q03">复制本题</button><a href="#project4-q03" class="permalink">题目链接 ↗</a></div></div></details><details class="question" id="project4-q04" data-id="project4-q04" data-category="设计与判断" data-core="false"><summary><span class="q-meta"><span class="level l2">L2</span><span class="q-code">P4 · 04</span><span class="mastered-tag" hidden>已掌握</span><span class="saved-tag" hidden>已收藏</span></span><span class="q-title">条件先验、FiLM、KL退火和Free Bits分别解决什么？是不是堆模块？</span><span class="chevron" aria-hidden="true">＋</span></summary><div class="answer"><div class="answer-label">参考回答 / 深入追问</div><blockquote><p>它们处理的是不同环节。</p>
+<p>条件先验根据当前手物几何决定从什么分布采样；FiLM让采样结果直接调制中间特征，提供影响输出的路径；KL退火调整训练早期与后期的约束强度；Free Bits减少继续把小KL压向零的优化动力。</p>
+<p>这些机制有互补动机，但动机合理不代表每项都已经被独立验证。过程记录中，单独加入FiLM效果并不明显；论文消融又把Prior和FiLM作为一组移除，所以不能分别归因每个模块带来了多少收益。</p></blockquote>
+<h3>追问：如果只能保留一个，你选哪个？</h3>
+<blockquote><p>现有实验不足以可靠回答。需要做单模块与组合消融，在相同训练预算下比较，而不能因为某个模块看起来更先进就认定它最关键。</p></blockquote><div class="q-actions"><button class="master-btn" data-id="project4-q04" aria-pressed="false">标记掌握</button><button class="save-btn" data-id="project4-q04" aria-pressed="false">加入重点</button><button class="copy-btn quiet" data-id="project4-q04">复制本题</button><a href="#project4-q04" class="permalink">题目链接 ↗</a></div></div></details><details class="question" id="project4-q05" data-id="project4-q05" data-category="设计与判断" data-core="false"><summary><span class="q-meta"><span class="level l2">L2</span><span class="q-code">P4 · 05</span><span class="mastered-tag" hidden>已掌握</span><span class="saved-tag" hidden>已收藏</span></span><span class="q-title">为什么不直接删除KL，让模型自由表达？</span><span class="chevron" aria-hidden="true">＋</span></summary><div class="answer"><div class="answer-label">参考回答 / 深入追问</div><blockquote><p>训练时后验能够看到目标抓取，但推理时没有目标，只能从先验采样。KL用于减小训练后验和推理先验之间的差异。</p>
+<p>删除它可能让训练重建更容易，但潜空间失去对齐后，推理采样可能落到解码器不熟悉的区域。</p>
+<p>所以我采用退火，是希望先给模型学习利用潜变量的机会，再逐步加强分布对齐，而不是永久取消约束。</p></blockquote>
+<h3>追问：Free Bits是不是强制每一维至少有一定信息？</h3>
+<blockquote><p>不是。它让某一维KL低于阈值后，继续降低KL不再降低这部分损失，相当于保留一段免惩罚容量。但没有强制网络一定使用这段容量，也不保证每一维都有有效信息。</p></blockquote><div class="q-actions"><button class="master-btn" data-id="project4-q05" aria-pressed="false">标记掌握</button><button class="save-btn" data-id="project4-q05" aria-pressed="false">加入重点</button><button class="copy-btn quiet" data-id="project4-q05">复制本题</button><a href="#project4-q05" class="permalink">题目链接 ↗</a></div></div></details><details class="question" id="project4-q06" data-id="project4-q06" data-category="设计与判断" data-core="false"><summary><span class="q-meta"><span class="level l2">L2</span><span class="q-code">P4 · 06</span><span class="mastered-tag" hidden>已掌握</span><span class="saved-tag" hidden>已收藏</span></span><span class="q-title">距离感知权重为什么有效？会不会只顾局部、破坏整体几何？</span><span class="chevron" aria-hidden="true">＋</span></summary><div class="answer"><div class="answer-label">参考回答 / 深入追问</div><blockquote><p>稠密距离矩阵中，非接触区域的远距离点对数量很多。统一计算误差时，它们可能凭数量主导重建目标，而接触附近的误差对抓取更敏感。</p>
+<p>距离感知权重让近表面区域保留较高权重，远距离区域逐渐降低权重，而不是全部删除。目标是在保持整体几何约束的同时，提高潜在接触区域的训练贡献。</p>
+<p>风险是权重过于集中后，远处几何可能学不好，因此需要同时观察整体重建、近表面误差、最终穿透和动态成功率，不能只看加权后的训练损失下降。</p></blockquote>
+<h3>追问：怎样证明不是简单换了损失尺度？</h3>
+<blockquote><p>应对比近表面与远距离区域的误差，并控制总体损失量级或增加匹配尺度的对照。现有消融支持最终指标改善，但没有完全分离所有可能机制，所以“减少远距离主导”首先是设计动机，不能把完整因果归因都当成已证明。</p></blockquote><div class="q-actions"><button class="master-btn" data-id="project4-q06" aria-pressed="false">标记掌握</button><button class="save-btn" data-id="project4-q06" aria-pressed="false">加入重点</button><button class="copy-btn quiet" data-id="project4-q06">复制本题</button><a href="#project4-q06" class="permalink">题目链接 ↗</a></div></div></details><details class="question" id="project4-q07" data-id="project4-q07" data-category="设计与判断" data-core="false"><summary><span class="q-meta"><span class="level l2">L2</span><span class="q-code">P4 · 07</span><span class="mastered-tag" hidden>已掌握</span><span class="saved-tag" hidden>已收藏</span></span><span class="q-title">可微物理正则究竟在算什么？为什么称为代理？</span><span class="chevron" aria-hidden="true">＋</span></summary><div class="answer"><div class="answer-label">参考回答 / 深入追问</div><blockquote><p>我根据手物距离构造软接触权重，用物体表面法向作为代理力方向，再计算合力及相对物体中心的合力矩，并单独惩罚穿透。</p>
+<p>它提供的是容易用于训练的连续信号，希望生成结果具有更合理的接触分布和平衡趋势。</p>
+<p>但这里没有完整建模摩擦锥、真实执行器力和动态接触，因此它是物理启发的正则，不是严格的力闭合证明，也不是直接求出了真实接触力。</p></blockquote>
+<h3>追问：合力和合力矩都为零，不就稳定了吗？</h3>
+<blockquote><p>不一定。没有接触时也可能得到零合力；少量不合理的代理力也可能互相抵消。即使某个受力状态平衡，也不代表能够抵抗任意方向的外部扰动。</p>
+<p>所以平衡项不能单独使用，还要结合几何重建、接触与穿透约束，并通过独立解析评价和动态仿真检验。</p></blockquote><div class="q-actions"><button class="master-btn" data-id="project4-q07" aria-pressed="false">标记掌握</button><button class="save-btn" data-id="project4-q07" aria-pressed="false">加入重点</button><button class="copy-btn quiet" data-id="project4-q07">复制本题</button><a href="#project4-q07" class="permalink">题目链接 ↗</a></div></div></details><details class="question" id="project4-q08" data-id="project4-q08" data-category="设计与判断" data-core="false"><summary><span class="q-meta"><span class="level l2">L2</span><span class="q-code">P4 · 08</span><span class="mastered-tag" hidden>已掌握</span><span class="saved-tag" hidden>已收藏</span></span><span class="q-title">为什么有穿透惩罚，还要屏蔽深度穿透点？</span><span class="chevron" aria-hidden="true">＋</span></summary><div class="answer"><div class="answer-label">参考回答 / 深入追问</div><blockquote><p>两者作用不同。穿透惩罚让非法几何逐步被纠正，但不保证训练中穿透立即消失。</p>
+<p>如果这些内部点仍参与代理力计算，模型可能利用不合法的接触获得较小的合力、合力矩损失，形成“几何错误却受到稳定性目标奖励”的情况。</p>
+<p>因此，穿透项负责纠正，屏蔽负责避免非法状态帮助降低平衡损失。</p></blockquote>
+<h3>追问：屏蔽后是不是就没有梯度了？</h3>
+<blockquote><p>被屏蔽点不再从这部分平衡计算获得贡献，但仍可以通过穿透惩罚等路径被纠正。具体梯度还要结合掩码实现判断，不能把屏蔽说成已经解决所有优化问题。</p></blockquote><div class="q-actions"><button class="master-btn" data-id="project4-q08" aria-pressed="false">标记掌握</button><button class="save-btn" data-id="project4-q08" aria-pressed="false">加入重点</button><button class="copy-btn quiet" data-id="project4-q08">复制本题</button><a href="#project4-q08" class="permalink">题目链接 ↗</a></div></div></details><details class="question" id="project4-q09" data-id="project4-q09" data-category="指标与证据" data-core="true"><summary><span class="q-meta"><span class="level l2">L2</span><span class="q-code">P4 · 09</span><span class="core-tag">重点</span><span class="mastered-tag" hidden>已掌握</span><span class="saved-tag" hidden>已收藏</span></span><span class="q-title">怎样证明每项改进有效？完整结果如下。</span><span class="chevron" aria-hidden="true">＋</span></summary><div class="answer"><div class="answer-label">参考回答 / 深入追问</div><p>第9题要展开成：<strong>完整方法相对基线改善了什么；每组消融证明了什么；反常结果怎样理解；还有哪些结论不能下。</strong></p>
+<p>先把表放在这里：</p>
+<div class="table-scroll" tabindex="0" role="region" aria-label="数据对比表"><table><thead><tr><th>设置</th><th>Q1 ↑</th><th>力闭合率 ↑</th><th>动态仿真成功率 ↑</th><th>关节角方差</th></tr></thead><tbody><tr><td>原始D(R,O)</td><td class="num">0.0110</td><td class="num">78.2%</td><td class="num">45.6%</td><td class="num">0.0642</td></tr><tr><td>去除EFC物理正则</td><td class="num">0.0140</td><td class="num">79.4%</td><td class="num">35.4%</td><td class="num">0.1300</td></tr><tr><td>去除Prior和FiLM</td><td class="num">0.0105</td><td class="num">75.2%</td><td class="num">65.0%</td><td class="num">0.0826</td></tr><tr><td>去除距离权重</td><td class="num">0.0132</td><td class="num">86.1%</td><td class="num">48.8%</td><td class="num">0.0887</td></tr><tr><td>完整PhysDRO</td><td class="num">0.0156</td><td class="num">89.2%</td><td class="num">53.9%</td><td class="num">0.0993</td></tr></tbody></table></div>
+<p><strong>注意：方差不能简单标成“越大越好”。</strong>它表示输出变化，是否为有效多样性，还需要结合成功率判断。</p>
+<h3>一、先区分四个指标，避免把它们当成同一件事</h3>
+<blockquote><p>Q1衡量解析接触模型下的抓取质量；力闭合率是Q1大于零的候选比例。前者描述质量数值，后者描述有多少候选通过判定，两者相关，但不是两份完全独立的证据。</p>
+<p>动态仿真成功率进一步检验候选在控制、接触和外部扰动下能否保持物体。</p>
+<p>关节角方差描述生成构型的数值分散程度，不判断抓取是否有效。</p></blockquote>
+<p>还要知道：Q1数值依赖接触模型、力与力矩的尺度处理等设置，主要在<strong>统一评价协议内</strong>比较，不能拿它与别人的不同实现直接比大小。</p>
+<hr>
+<h3>二、完整方法对比原始D(R,O)：证明整体改进，但不能分配模块贡献</h3>
+<div class="table-scroll" tabindex="0" role="region" aria-label="数据对比表"><table><thead><tr><th>指标</th><th>原始D(R,O)</th><th>完整模型</th><th>变化</th></tr></thead><tbody><tr><td>Q1</td><td class="num">0.0110</td><td class="num">0.0156</td><td>增加0.0046</td></tr><tr><td>力闭合率</td><td class="num">78.2%</td><td class="num">89.2%</td><td>提高11个百分点</td></tr><tr><td>动态成功率</td><td class="num">45.6%</td><td class="num">53.9%</td><td>提高8.3个百分点</td></tr><tr><td>方差</td><td class="num">0.0642</td><td class="num">0.0993</td><td>输出更分散</td></tr></tbody></table></div>
+<p>可以这样回答：</p>
+<blockquote><p>相比原始D(R,O)，完整方法在解析抓取质量、动态成功率和输出分散程度上都有改善，说明这套改进在当前评价中取得了整体收益。</p>
+<p>但这个比较同时改变了多个部分，所以不能把11个百分点的力闭合率提升归给物理正则，也不能把方差变化全部归给FiLM。模块作用要继续看消融。</p></blockquote>
+<h3>追问：四个指标都提高，能否说明已经解决多样性和稳定性问题？</h3>
+<blockquote><p>只能说有所改善。动态成功率仍然只有53.9%，方差也没有区分成功和失败候选，因此不能说已经解决，更不能说两者在所有条件下都能同时提高。</p></blockquote>
+<hr>
+<h3>三、EFC物理正则：动态改善最大，但输出变化减少</h3>
+<p>应该比较的是：</p>
+<blockquote><p><strong>去除EFC</strong>与<strong>完整模型</strong>，而不是原始D(R,O)与完整模型。</p></blockquote>
+<div class="table-scroll" tabindex="0" role="region" aria-label="数据对比表"><table><thead><tr><th>指标</th><th>去除EFC</th><th>完整模型</th><th>加入EFC后的变化</th></tr></thead><tbody><tr><td>Q1</td><td class="num">0.0140</td><td class="num">0.0156</td><td>增加0.0016</td></tr><tr><td>力闭合率</td><td class="num">79.4%</td><td class="num">89.2%</td><td>提高9.8个百分点</td></tr><tr><td>动态成功率</td><td class="num">35.4%</td><td class="num">53.9%</td><td>提高18.5个百分点</td></tr><tr><td>方差</td><td class="num">0.1300</td><td class="num">0.0993</td><td>下降0.0307</td></tr></tbody></table></div>
+<h3>主回答：</h3>
+<blockquote><p>在其他模块保留的条件下，加入EFC后，解析指标和动态成功率都提高，其中动态成功率提高18.5个百分点。这支持物理正则在当前组合中改善了生成抓取的稳定性。</p>
+<p>同时方差下降，说明输出分布发生了收缩。一个合理解释是，物理约束限制了部分构型变化，使生成结果更集中于满足约束的区域。但现有实验没有区分被压缩的究竟是有效模式还是失败姿态，因此不能说它只去除了无效多样性。</p></blockquote>
+<h3>追问1：为什么去掉物理正则，成功率35.4%，反而低于原始D(R,O)的45.6%？</h3>
+<p>这是非常值得准备的追问。</p>
+<blockquote><p>因为“去掉EFC”不是回到原始D(R,O)，它仍然保留Prior、FiLM和距离权重。</p>
+<p>这组结果说明，其他改动组合起来虽然提高了解析指标和方差，但没有自动改善动态表现。扩大输出变化后，可能出现更多动态上不可靠的候选，而物理正则对这套组合起到了约束作用。</p>
+<p>不过，这只是与结果一致的解释，具体失败是否来自接触、穿透或控制，还需要逐候选分析。</p></blockquote>
+<h3>追问2：这是否说明EFC是最重要模块？</h3>
+<blockquote><p>如果只看这组消融中的动态成功率变化，它表现出最大的正向差异。但不能据此给所有模块排一个普适的重要性顺序，因为模块之间有交互，且没有重复训练方差。</p>
+<p>更准确是：EFC对完整模型当前的动态表现非常关键。</p></blockquote>
+<hr>
+<h3>四、Prior＋FiLM：解析质量与方差提高，动态成功率却下降</h3>
+<div class="table-scroll" tabindex="0" role="region" aria-label="数据对比表"><table><thead><tr><th>指标</th><th>去除Prior和FiLM</th><th>完整模型</th><th>加入组合后的变化</th></tr></thead><tbody><tr><td>Q1</td><td class="num">0.0105</td><td class="num">0.0156</td><td>增加0.0051</td></tr><tr><td>力闭合率</td><td class="num">75.2%</td><td class="num">89.2%</td><td>提高14个百分点</td></tr><tr><td>动态成功率</td><td class="num">65.0%</td><td class="num">53.9%</td><td>下降11.1个百分点</td></tr><tr><td>方差</td><td class="num">0.0826</td><td class="num">0.0993</td><td>增加0.0167</td></tr></tbody></table></div>
+<h3>主回答：</h3>
+<blockquote><p>这组结果支持Prior和FiLM组合提高了输出分散程度与解析抓取质量，但没有支持它改善动态成功率，反而出现下降。</p>
+<p>所以不能说“增强潜变量利用让抓取全面变好”。更准确的结论是，这个组合改变了生成分布，在当前物理正则和评测条件下，获得了不同的质量—多样性取舍。</p></blockquote>
+<h3>追问1：为什么静态更好，动态更差？</h3>
+<blockquote><p>可能是新增候选在解析接触上更好，却对接触建立、控制误差或动态扰动更敏感；也可能与训练交互及姿态恢复有关。</p>
+<p>现有汇总表不能区分这些原因。我会先关联同一候选的Q1和动态结果，重点分析Q1通过但动态失败的样本，再看失败发生在哪个阶段。</p></blockquote>
+<p>不要直接断言“因为姿态更复杂”，除非你做过对应统计。</p>
+<h3>追问2：是不是你的改进方向错了？</h3>
+<blockquote><p>如果唯一目标是当前协议下的动态成功率，那么这组结果确实不支持保留该组合，65%的版本值得优先考虑。</p>
+<p>如果还需要不同接触方式或接近方向，就要进一步证明新增多样性能够帮助完成任务。目前方差增加只是初步证据，尚不足以证明这种应用价值。</p></blockquote>
+<h3>追问3：你证明条件先验和FiLM各自有效了吗？</h3>
+<blockquote><p>没有完整分开证明。表中是联合移除，所以只能讨论组合效果。</p>
+<p>过程记录中FiLM单独加入效果不明显，也说明不能简单把组合收益归给它。要分别证明，需要“只加先验、只加FiLM、两者都加”的对照，并明确其余训练机制是否一致。</p></blockquote>
+<hr>
+<h3>五、距离权重：四项指标一致改善，但机制解释仍需额外验证</h3>
+<div class="table-scroll" tabindex="0" role="region" aria-label="数据对比表"><table><thead><tr><th>指标</th><th>去除距离权重</th><th>完整模型</th><th>加入后的变化</th></tr></thead><tbody><tr><td>Q1</td><td class="num">0.0132</td><td class="num">0.0156</td><td>增加0.0024</td></tr><tr><td>力闭合率</td><td class="num">86.1%</td><td class="num">89.2%</td><td>提高3.1个百分点</td></tr><tr><td>动态成功率</td><td class="num">48.8%</td><td class="num">53.9%</td><td>提高5.1个百分点</td></tr><tr><td>方差</td><td class="num">0.0887</td><td class="num">0.0993</td><td>增加0.0106</td></tr></tbody></table></div>
+<h3>主回答：</h3>
+<blockquote><p>这组实验中，距离权重在四项指标上都带来改善，说明重新分配距离重建误差的贡献，对当前模型有帮助。</p>
+<p>我的设计动机是避免数量较多的远距离点对主导训练，让模型更关注接触附近的几何关系。但仅凭最终指标，不能完全证明收益就是由这一机制产生的。</p></blockquote>
+<h3>追问：还要怎样验证你的解释？</h3>
+<blockquote><p>可以分别统计近表面和远距离区域的重建误差，再检查最终接触位置、穿透和接触覆盖是否改善。</p>
+<p>同时比较不同权重强度，确认不是仅仅改变了重建项相对其他损失的数值尺度。否则“关注接触区域”是合理动机，但因果解释还不充分。</p></blockquote>
+<hr>
+<h3>六、这三组消融的提升能不能相加？</h3>
+<p>不能。</p>
+<blockquote><p>每组都是在完整模型附近，移除一个模块后重新比较，测到的是它在其他模块存在时的条件作用。</p>
+<p>这些模块会共同改变训练和生成分布，因此9.8、14和3.1个百分点不能相加，去解释完整模型相对原始D(R,O)的11个百分点提升。</p></blockquote>
+<p>这还引出一个更深的问题：</p>
+<h3>去除某模块的消融，是否应该重新训练？</h3>
+<blockquote><p>对训练机制的消融，原则上需要在对应设置下重新训练，控制训练预算和选择规则。仅在推理时关闭一个模块，回答的是模型对该模块的依赖或扰动敏感性，不等同于“没有这个模块能学到什么”。</p></blockquote>
+<p>你具体每组实验怎样训练，仍需要与最终配置对应，不能凭一般规范替代实际记录。</p>
+<hr>
+<h3>七、怎样判断这些变化可信，而不是训练波动？</h3>
+<blockquote><p>当前表能说明这几次实验的观察结果，但没有多随机种子和完整方差，就不能把每个小幅差异都称为稳定、显著的改善。</p>
+<p>后续应使用相同物体划分和评价协议，进行重复训练；同时按物体检查收益是否广泛存在，还是集中在少数容易物体上。</p></blockquote>
+<p>这里有两个层次：</p>
+<ul><li><strong>重复训练</strong>：检查初始化、采样和训练随机性。</li><li><strong>按物体分析</strong>：检查方法是否只在部分对象上有效。</li></ul>
+<p>12,800个候选也不等于12,800个完全独立样本。同一物体的候选共享几何与生成条件，统计时应考虑这种关联，不能只因为候选多就宣称结论非常稳。</p>
+<hr>
+<h3>八、如果让你重新设计实验，最先补什么？</h3>
+<p>建议按投入和信息收益排序：</p>
+<ol><li><strong>先复核现有结果。</strong>确认每组模型、配置、checkpoint、候选数量和评价脚本对应，解决归档缺口。</li><li><strong>利用已有候选补分析。</strong>把Q1、动态结果、穿透和构型变化逐条关联；分别统计全部候选与成功候选的多样性。</li><li><strong>重复关键对照。</strong>优先重复完整模型、去EFC、去Prior＋FiLM，确认最明显的动态取舍是否稳定。</li><li><strong>再拆模块和调权重。</strong>分开Prior与FiLM，并比较物理正则权重，观察成功率与有效多样性的关系。</li></ol>
+<p>这样比一开始把所有模块做成庞大的组合实验更可控。</p>
+<hr>
+<h3>九、面试现场可以怎样完整回答第9题？</h3>
+<p>下面这一版可作为主回答，约两分钟：</p>
+<blockquote><p>我通过整体对比和模块消融两个层次评价改进。</p>
+<p>相比原始D(R,O)，完整方法的力闭合率从78.2%提高到89.2%，动态仿真成功率从45.6%提高到53.9%，Q1和关节角方差也提高。这说明整套方法在当前评价下有收益，但不能直接把提升归给某一个模块。</p>
+<p>消融中，物理正则对稳定性的作用比较明显：加入后，动态成功率从35.4%提高到53.9%，但方差降低，体现了稳定性和输出分散程度之间的取舍。</p>
+<p>Prior和FiLM则出现相反现象：解析指标和方差提高，但动态成功率从65%下降到53.9%。因此我不能说多样性模块改善了所有指标，也需要承认，如果只追求当前动态成功率，去掉这两个模块的版本值得考虑。</p>
+<p>距离权重在这组实验中改善了四项指标，支持它对当前模型有效，但“让模型更关注接触区域”这一机制，还需要分区域误差分析进一步验证。</p>
+<p>所以我的结论不是各模块都越加越好，而是它们改变了生成分布，并产生不同取舍。下一步最重要的是评价成功抓取中的有效多样性，并分析解析通过、动态失败的具体原因，同时补充重复实验，确认这些现象是否稳定。</p></blockquote><div class="q-actions"><button class="master-btn" data-id="project4-q09" aria-pressed="false">标记掌握</button><button class="save-btn" data-id="project4-q09" aria-pressed="false">加入重点</button><button class="copy-btn quiet" data-id="project4-q09">复制本题</button><a href="#project4-q09" class="permalink">题目链接 ↗</a></div></div></details><details class="question" id="project4-q10" data-id="project4-q10" data-category="指标与证据" data-core="true"><summary><span class="q-meta"><span class="level l2">L2</span><span class="q-code">P4 · 10</span><span class="core-tag">重点</span><span class="mastered-tag" hidden>已掌握</span><span class="saved-tag" hidden>已收藏</span></span><span class="q-title">去掉Prior和FiLM，仿真成功率反而65%，为什么还保留？</span><span class="chevron" aria-hidden="true">＋</span></summary><div class="answer"><div class="answer-label">参考回答 / 深入追问</div><blockquote><p>这是一个需要正面承认的取舍。如果目标仅仅是在当前仿真协议下最大化单次成功率，那么65%的这个版本值得优先考虑，不能说完整模型在这一目标上更好。</p>
+<p>保留它们的研究动机是改善生成分布和多样性，同时提升解析抓取质量。但目前关节角方差还不能充分证明新增变化都是有效模式，因此还需要进一步评价成功抓取中的多样性。</p>
+<p>现有结果支持“多指标之间存在权衡”，不足以支持“保留多样性模块在任何应用中都更好”。</p></blockquote>
+<h3>追问：如果公司只看抓取成功率，你会怎样做？</h3>
+<blockquote><p>我会按实际目标选模型，重新比较该消融版本，并在同等时间预算下评测有效抓取数量。如果需要多样性是为了绕开障碍、满足不同接近方向，也应该直接评价这些任务收益，而不是只优化方差。</p></blockquote><div class="q-actions"><button class="master-btn" data-id="project4-q10" aria-pressed="false">标记掌握</button><button class="save-btn" data-id="project4-q10" aria-pressed="false">加入重点</button><button class="copy-btn quiet" data-id="project4-q10">复制本题</button><a href="#project4-q10" class="permalink">题目链接 ↗</a></div></div></details><details class="question" id="project4-q11" data-id="project4-q11" data-category="指标与证据" data-core="true"><summary><span class="q-meta"><span class="level l2">L2</span><span class="q-code">P4 · 11</span><span class="core-tag">重点</span><span class="mastered-tag" hidden>已掌握</span><span class="saved-tag" hidden>已收藏</span></span><span class="q-title">方差更大，怎么证明多样性更好？</span><span class="chevron" aria-hidden="true">＋</span></summary><div class="answer"><div class="answer-label">参考回答 / 深入追问</div><blockquote><p>目前方差只能证明关节数值分布更分散，不能直接证明有效抓取模式更多。碰撞、失败和不合理姿态同样可能把方差抬高。</p>
+<p>更合理的评价是先报告全部候选的成功比例，再在成功候选中比较接触区域、腕部方向和关节构型的覆盖。</p>
+<p>例如固定每物体生成128个候选，分别报告成功候选数、去重后的有效模式数，以及获得若干不同成功模式所需的时间。</p></blockquote>
+<h3>追问：只统计成功候选的多样性，也可能误导吗？</h3>
+<blockquote><p>会。例如只成功两个、但彼此差别很大的方法，不能因此胜过成功很多个的方法。因此有效多样性必须和成功数量、成功比例一起报告，不能只比较过滤后的单个分散度。</p></blockquote><div class="q-actions"><button class="master-btn" data-id="project4-q11" aria-pressed="false">标记掌握</button><button class="save-btn" data-id="project4-q11" aria-pressed="false">加入重点</button><button class="copy-btn quiet" data-id="project4-q11">复制本题</button><a href="#project4-q11" class="permalink">题目链接 ↗</a></div></div></details><details class="question" id="project4-q12" data-id="project4-q12" data-category="指标与证据" data-core="true"><summary><span class="q-meta"><span class="level l2">L2</span><span class="q-code">P4 · 12</span><span class="core-tag">重点</span><span class="mastered-tag" hidden>已掌握</span><span class="saved-tag" hidden>已收藏</span></span><span class="q-title">力闭合率89.2%，动态成功率为什么只有53.9%？</span><span class="chevron" aria-hidden="true">＋</span></summary><div class="answer"><div class="answer-label">参考回答 / 深入追问</div><blockquote><p>二者回答的问题不同。力闭合率是按解析接触模型计算Q1大于零的比例；动态仿真还涉及闭合过程、摩擦、质量惯量、控制和持续扰动。</p>
+<p>解析条件成立，不意味着真实仿真接触一定按预设建立，也不意味着当前控制能够维持它。因此不能将两个百分比直接相减，解释为某一种确定的失败原因。</p>
+<p>正确的分析应对同一个候选关联两类结果，检查解析通过但动态失败的情况发生在接触建立、初始保持还是扰动阶段，再进行归因。</p></blockquote>
+<h3>追问：这说明物理正则没用吗？</h3>
+<blockquote><p>应看有无模块的消融。当前加入EFC后，动态成功率从35.4%到53.9%，说明在该实验设置下有明显改善；但仍未覆盖动态稳定性的全部因素，也没有实物验证。</p></blockquote><div class="q-actions"><button class="master-btn" data-id="project4-q12" aria-pressed="false">标记掌握</button><button class="save-btn" data-id="project4-q12" aria-pressed="false">加入重点</button><button class="copy-btn quiet" data-id="project4-q12">复制本题</button><a href="#project4-q12" class="permalink">题目链接 ↗</a></div></div></details><details class="question" id="project4-q13" data-id="project4-q13" data-category="指标与证据" data-core="false"><summary><span class="q-meta"><span class="level l2">L2</span><span class="q-code">P4 · 13</span><span class="mastered-tag" hidden>已掌握</span><span class="saved-tag" hidden>已收藏</span></span><span class="q-title">DiPGrasp仿真成功率60.6%，你只有53.9%，优势在哪里？</span><span class="chevron" aria-hidden="true">＋</span></summary><div class="answer"><div class="answer-label">参考回答 / 深入追问</div><blockquote><p>我的方法在表中的Q1、力闭合率和关节方差更高，但动态成功率低于DiPGrasp，不能声称综合最好。</p>
+<p>研究上的结果是：在D(R,O)框架下，通过潜变量、几何学习和物理正则改善了原始方法，并展示了多样性与动态稳定性之间的取舍。</p>
+<p>如果面向部署，应结合具体目标和计算成本选方法。若动态成功率是唯一关键指标，当前结果没有证明PhysDRO优于DiPGrasp。</p></blockquote><div class="q-actions"><button class="master-btn" data-id="project4-q13" aria-pressed="false">标记掌握</button><button class="save-btn" data-id="project4-q13" aria-pressed="false">加入重点</button><button class="copy-btn quiet" data-id="project4-q13">复制本题</button><a href="#project4-q13" class="permalink">题目链接 ↗</a></div></div></details><details class="question" id="project4-q14" data-id="project4-q14" data-category="设计与判断" data-core="false"><summary><span class="q-meta"><span class="level l2">L2</span><span class="q-code">P4 · 14</span><span class="mastered-tag" hidden>已掌握</span><span class="saved-tag" hidden>已收藏</span></span><span class="q-title">对比实验是否公平？你能完整复算吗？</span><span class="chevron" aria-hidden="true">＋</span></summary><div class="answer"><div class="answer-label">参考回答 / 深入追问</div><blockquote><p>论文设置是100个GSO物体，每物体128个候选，共12,800个。公平比较还需要统一输入几何、手型、控制、物理参数、扰动协议和计算预算。</p>
+<p>当前本地归档存在复现缺口：部分基线文件每物体只看到32个候选，尚未找到完整批次合并链路；部分遗留训练配置也与论文设置不同。因此可以介绍论文实验，但不能声称已经根据现存文件把所有结果完整复算。</p></blockquote>
+<h3>追问：这会怎样影响结论？</h3>
+<blockquote><p>它限制的是结果追溯和独立复核的完整性。后续应该建立模型、配置、候选文件和评价结果的一一对应，核对样本数量，再复算汇总指标。</p>
+<p>同时核对测试物体与训练数据的关系。仅凭100个物体用于评价，不能自动宣称它们全部满足严格未见物体或零样本条件。</p></blockquote><div class="q-actions"><button class="master-btn" data-id="project4-q14" aria-pressed="false">标记掌握</button><button class="save-btn" data-id="project4-q14" aria-pressed="false">加入重点</button><button class="copy-btn quiet" data-id="project4-q14">复制本题</button><a href="#project4-q14" class="permalink">题目链接 ↗</a></div></div></details><details class="question" id="project4-q15" data-id="project4-q15" data-category="落地与改进" data-core="true"><summary><span class="q-meta"><span class="level l3">L3</span><span class="q-code">P4 · 15</span><span class="core-tag">重点</span><span class="mastered-tag" hidden>已掌握</span><span class="saved-tag" hidden>已收藏</span></span><span class="q-title">如果继续做，你会优先改什么？</span><span class="chevron" aria-hidden="true">＋</span></summary><div class="answer"><div class="answer-label">参考回答 / 深入追问</div><blockquote><p>我会先把评价和复现链路补齐，再针对动态失败改进，最后考虑真实机器人验证。</p></blockquote>
+<h3>第一步：确认结果究竟来自哪组模型和样本。</h3>
+<blockquote><p>整理完整模型与关键消融的配置、checkpoint、随机种子和候选文件，核对每物体候选数，并用统一脚本重新评价。</p>
+<p>同时补充成功候选数量与有效多样性，让“多样性提高”不再只依赖全体关节方差。这一步能明确后面应该优化什么，也避免在口径不一致的结果上继续增加模块。</p></blockquote>
+<h3>第二步：定位解析好、动态差的具体原因。</h3>
+<blockquote><p>对同一批候选记录初始穿透、接触建立、闭合后保持和各方向扰动的结果，按失败阶段分类。</p>
+<p>如果主要失败在接触未建立，优先检查姿态恢复和闭合控制；如果初始能保持、扰动后失败，再分析摩擦、力分配和动态响应。这样能决定该改生成模型、后处理还是控制，而不是直接把53.9%都归因于网络。</p></blockquote>
+<h3>第三步：按实际目标选择多样性—成功率取舍。</h3>
+<blockquote><p>重评完整模型与65%动态成功率的消融版本，比较同等时间内能获得多少种不同的成功抓取。如果任务不需要很多模式，就不应为了方差牺牲成功率；如果需要多接近方向或避障，则直接评价这些用途。</p></blockquote>
+<h3>第四步：小规模推进真机，而不是一次搭完整开放场景。</h3>
+<blockquote><p>先选少量已知物体，在固定摆放下，把生成构型映射到真实控制约束，进行可达性、碰撞和闭合检查，再测试抓取保持与搬运。</p>
+<p>初步确认误差来自哪里后，再逐步引入在线定位、部分点云和物理参数变化。每一步分别报告候选可执行比例与执行后成功率，避免只统计人工筛选后的结果。</p></blockquote>
+<h3>如果只能先做一项：</h3>
+<blockquote><p>我会先统一复现并关联每个候选的解析、几何和动态结果。当前最大的疑问是为什么不同指标出现相反变化；先把这个问题查清，比直接换模型更有依据。</p></blockquote><div class="q-actions"><button class="master-btn" data-id="project4-q15" aria-pressed="false">标记掌握</button><button class="save-btn" data-id="project4-q15" aria-pressed="false">加入重点</button><button class="copy-btn quiet" data-id="project4-q15">复制本题</button><a href="#project4-q15" class="permalink">题目链接 ↗</a></div></div></details></section><nav class="chapter-bottom" aria-label="分卷切换"><a href="project3.html">← 五指触觉建模与稳定性预测</a><a href="index.html">完成本卷 · 返回目录 →</a></nav></main></div><footer class="site-footer"><div>祝子凡 · 个人求职复习 <span>更新于 2026.11.07</span></div><p>依据本轮确认回答整理；待核对项保留，不把仿真结果扩展为真机结论。熟练度与重点标记仅保存在当前浏览器。</p><p>版式参考 <a href="https://winstonjq.github.io/embodied-interview-qa/" target="_blank" rel="noopener noreferrer">具身智能高频面试题库 ↗</a> · 本站为个人经历与项目问答。</p></footer><div id="toast" role="status" aria-live="polite"></div></body></html>
